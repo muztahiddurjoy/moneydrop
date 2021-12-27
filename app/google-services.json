@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "407047283748",
+    "project_id": "money-drop-8b78e",
+    "storage_bucket": "money-drop-8b78e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:407047283748:android:74cc9ed5c0097fadb024b1",
+        "android_client_info": {
+          "package_name": "org.moneydrop.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "407047283748-iek042ilrluloqd34d5u34esot235b02.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCM77BMKCGQk4xTxUKAcKTiYccAv5V9OR0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "407047283748-iek042ilrluloqd34d5u34esot235b02.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

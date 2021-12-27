@@ -4,11 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.startapp.sdk.adsbase.Ad;
@@ -49,12 +49,12 @@ public class AdsFragment extends Fragment {
     }
 
 
-    private Button showbtn;
+    private CardView showbtn;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_ads, container, false);
-        showbtn = root.findViewById(R.id.showbutton);
+        showbtn = root.findViewById(R.id.showads);
         showbtn.setOnClickListener((v)->{
             final StartAppAd appAd = new StartAppAd(getActivity());
             appAd.setVideoListener(new VideoListener() {

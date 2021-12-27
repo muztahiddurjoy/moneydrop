@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<item
+    android:id="@+id/tasks_fragment"
+    android:icon="@drawable/ic_task"
+    app:showAsAction="ifRoom"
+    android:title="@string/tasks" />
+
+    <item
+        android:id="@+id/earn_coin"
+        android:icon="@drawable/ic_coin"
+        app:showAsAction="ifRoom"
+        android:title="@string/earn_coins"/>
+
+    <item
+        android:id="@+id/profile_fragment"
+        android:icon="@drawable/ic_user"
+        app:showAsAction="ifRoom"
+        android:title="@string/profile"/>
+    <item
+        android:id="@+id/spin_ad"
+        android:icon="@drawable/ic_casino"
+        app:showAsAction="ifRoom"
+        android:title="@string/spin_and_earn"/>
+    <item
+        android:id="@+id/withdraw_money"
+        android:icon="@drawable/ic_withdraw"
+        app:showAsAction="ifRoom"
+        android:title="@string/withdraw"/>
+</menu>
