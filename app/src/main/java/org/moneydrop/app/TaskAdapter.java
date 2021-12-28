@@ -10,18 +10,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.moneydrop.app.DataClasses.TaskDataset;
+
 import java.util.ArrayList;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolderTask> {
 
-    ArrayList<String> arrayList;
+    ArrayList<TaskDataset> arrayList;
     ArrayList<String > keys;
     Context context;
+    Boolean clickable;
 
-    public TaskAdapter(ArrayList<String> arrayList, ArrayList<String> keys, Context context) {
+    public TaskAdapter(ArrayList<TaskDataset> arrayList, ArrayList<String> keys, Context context, Boolean clickable) {
         this.arrayList = arrayList;
         this.keys = keys;
         this.context = context;
+        this.clickable = clickable;
     }
 
     @NonNull
@@ -32,12 +36,17 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolderTask
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderTask holder, int position) {
-        String val = arrayList.get(position);
+        String val = arrayList.get(position).getName();
         String key = keys.get(position);
         holder.textView.setText(val);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (clickable){
+                    Intent intent = new Intent(context,Task2aActivity.class);
+                    intent.putExtra("dbkey",key);
+                    context.startActivity(intent);
+                }
                // StartAppAd.showAd(context);
 //                final StartAppAd offer = new StartAppAd(context);
 //                offer.setVideoListener(new VideoListener() {
@@ -58,7 +67,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolderTask
 //                        Toast.makeText(context, ad.errorMessage, Toast.LENGTH_SHORT).show();
 //                    }
 //                });
-                context.startActivity(new Intent(context,Task2aActivity.class));
+
             }
         });
     }

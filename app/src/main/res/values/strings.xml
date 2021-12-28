@@ -14,7 +14,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="earn_coins">Earn Coins</string>
-    <string name="spin_and_earn">Spin and Earn</string>
+    <string name="spin_and_earn">Spin</string>
     <string name="withdraw">Withdraw Money</string>
     <string name="click_here_and_click_on_the_ads_to_earn_coins">Click Here and click on the ads to earn coins</string>
+    <string name="please_connect_to_vpn_and_select_county_united_states">Please close the app and to VPN and select county United States</string>
 </resources>

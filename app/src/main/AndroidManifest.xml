@@ -21,6 +21,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoneyDrop">
         <activity
+            android:name=".ConnectVPNAndroid"
+            android:exported="false"
+            android:noHistory="true"
+            android:theme="@style/NoActionBar"/>
+        <activity
             android:name=".Task2aActivity"
             android:exported="false" />
         <activity

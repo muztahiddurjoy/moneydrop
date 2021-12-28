@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.startapp.sdk.adsbase.Ad;
 import com.startapp.sdk.adsbase.StartAppAd;
+import com.startapp.sdk.adsbase.adlisteners.AdDisplayListener;
 import com.startapp.sdk.adsbase.adlisteners.AdEventListener;
 import com.startapp.sdk.adsbase.adlisteners.VideoListener;
 
@@ -63,10 +64,32 @@ public class AdsFragment extends Fragment {
                     Toast.makeText(getActivity(), "Video Finished", Toast.LENGTH_SHORT).show();
                 }
             });
-            appAd.loadAd(StartAppAd.AdMode.REWARDED_VIDEO, new AdEventListener() {
+
+            appAd.loadAd(new AdEventListener() {
                 @Override
                 public void onReceiveAd(@NonNull Ad ad) {
-                    appAd.showAd();
+
+                    appAd.showAd(new AdDisplayListener() {
+                        @Override
+                        public void adHidden(Ad ad) {
+                            Toast.makeText(getActivity(), "Ad Hidden", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void adDisplayed(Ad ad) {
+                            Toast.makeText(getActivity(), "Ad Displayed", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void adClicked(Ad ad) {
+                            Toast.makeText(getActivity(), "Ad Clicked", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void adNotDisplayed(Ad ad) {
+
+                        }
+                    });
                 }
 
                 @Override

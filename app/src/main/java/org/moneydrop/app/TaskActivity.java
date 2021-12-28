@@ -17,6 +17,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.moneydrop.app.DataClasses.TaskDataset;
+
 import java.util.ArrayList;
 
 
@@ -52,7 +54,7 @@ public class TaskActivity extends Fragment {
     private DatabaseReference databaseReference;
     private FirebaseAuth auth;
     private TaskAdapter adapter;
-    private ArrayList<String> arrayList;
+    private ArrayList<TaskDataset> arrayList;
     private ArrayList<String> keys;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,17 +68,19 @@ public class TaskActivity extends Fragment {
         recyclerView.setLayoutManager(manager);
         arrayList = new ArrayList<>();
         keys = new ArrayList<>();
-        adapter = new TaskAdapter(arrayList,keys,getActivity());
+        adapter = new TaskAdapter(arrayList,keys,getActivity(),true);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 arrayList.clear();
                 keys.clear();
               for(DataSnapshot ds : snapshot.getChildren()){
-                  String data = ds.getValue(String.class);
-                  String key = ds.getKey();
-                  arrayList.add(data);
-                  keys.add(key);
+                  TaskDataset data = ds.getValue(TaskDataset.class);
+                  if (data.getState().equals("undone")){
+                      String key = ds.getKey();
+                      arrayList.add(data);
+                      keys.add(key);
+                  }
               }
               adapter.notifyDataSetChanged();
             }

@@ -58,7 +58,10 @@ public class AuthActivity extends AppCompatActivity {
                                     new UserDatasetClass(
                                             binding.signupName.getText().toString(),
                                             binding.signupEmail.getText().toString(),
-                                            binding.signupPhone.getText().toString())).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            binding.signupPhone.getText().toString(),
+                                            "0",
+                                            "false"
+                                    )).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
                                     startActivity(new Intent(AuthActivity.this,MainActivity.class));
