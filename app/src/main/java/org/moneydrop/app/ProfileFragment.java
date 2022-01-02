@@ -1,8 +1,6 @@
 package org.moneydrop.app;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +56,7 @@ public class ProfileFragment extends Fragment {
 
     private TextView name, email, phone, balance;
     private DatabaseReference databaseReference;
+    private DatabaseReference databaseReferenceprof;
     private RecyclerView recyclerView;
     private TaskAdapter adapter;
     private ArrayList<String> keys;
@@ -78,8 +77,8 @@ public class ProfileFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2,RecyclerView.VERTICAL,true));
         adapter = new TaskAdapter(arrayList,keys,getActivity(),false);
         databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid().toString()).child("tasks");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @SuppressLint("SetTextI18n")
+        databaseReferenceprof = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid().toString());
+        databaseReferenceprof.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 UserDatasetClass datasetClass = snapshot.getValue(UserDatasetClass.class);
@@ -97,13 +96,15 @@ public class ProfileFragment extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                arrayList.clear();
+                keys.clear();
                 for (DataSnapshot ds : snapshot.getChildren()){
-                    Log.d("datas",ds.toString());
                     TaskDataset dataset = ds.getValue(TaskDataset.class);
-
-                    if (dataset.getState().equals("done")){
-                        arrayList.add(dataset);
-                        keys.add(ds.getKey());
+                    if (!arrayList.contains(dataset)) {
+                        if (dataset.getState().equals("done")) {
+                            arrayList.add(dataset);
+                            keys.add(ds.getKey());
+                        }
                     }
                 }
                 adapter.notifyDataSetChanged();

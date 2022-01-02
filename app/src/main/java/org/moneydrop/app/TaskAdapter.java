@@ -6,9 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.startapp.sdk.adsbase.Ad;
+import com.startapp.sdk.adsbase.StartAppAd;
+import com.startapp.sdk.adsbase.adlisteners.AdEventListener;
+import com.startapp.sdk.adsbase.adlisteners.VideoListener;
 
 import org.moneydrop.app.DataClasses.TaskDataset;
 
@@ -48,25 +55,25 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolderTask
                     context.startActivity(intent);
                 }
                // StartAppAd.showAd(context);
-//                final StartAppAd offer = new StartAppAd(context);
-//                offer.setVideoListener(new VideoListener() {
-//                    @Override
-//                    public void onVideoCompleted() {
-//                        Toast.makeText(context, "Granted", Toast.LENGTH_SHORT).show();
-//
-//                    }
-//                });
-//                offer.loadAd(StartAppAd.AdMode.REWARDED_VIDEO, new AdEventListener() {
-//                    @Override
-//                    public void onReceiveAd(@NonNull Ad ad) {
-//                        offer.showAd();
-//                    }
-//
-//                    @Override
-//                    public void onFailedToReceiveAd(@Nullable Ad ad) {
-//                        Toast.makeText(context, ad.errorMessage, Toast.LENGTH_SHORT).show();
-//                    }
-//                });
+                final StartAppAd offer = new StartAppAd(context);
+                offer.setVideoListener(new VideoListener() {
+                    @Override
+                    public void onVideoCompleted() {
+                        Toast.makeText(context, "Granted", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+                offer.loadAd(StartAppAd.AdMode.REWARDED_VIDEO, new AdEventListener() {
+                    @Override
+                    public void onReceiveAd(@NonNull Ad ad) {
+                        offer.showAd();
+                    }
+
+                    @Override
+                    public void onFailedToReceiveAd(@Nullable Ad ad) {
+                        Toast.makeText(context, ad.errorMessage, Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
         });
