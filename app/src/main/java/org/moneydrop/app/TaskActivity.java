@@ -77,9 +77,11 @@ public class TaskActivity extends Fragment {
               for(DataSnapshot ds : snapshot.getChildren()){
                   TaskDataset data = ds.getValue(TaskDataset.class);
                   if (data.getState().equals("undone")){
-                      String key = ds.getKey();
-                      arrayList.add(data);
-                      keys.add(key);
+                      if (!arrayList.contains(data)) {
+                          String key = ds.getKey();
+                          arrayList.add(data);
+                          keys.add(key);
+                      }
                   }
               }
               adapter.notifyDataSetChanged();

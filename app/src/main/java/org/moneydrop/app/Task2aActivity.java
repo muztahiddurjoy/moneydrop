@@ -21,7 +21,6 @@ import com.startapp.sdk.adsbase.Ad;
 import com.startapp.sdk.adsbase.StartAppAd;
 import com.startapp.sdk.adsbase.adlisteners.AdDisplayListener;
 import com.startapp.sdk.adsbase.adlisteners.AdEventListener;
-import com.startapp.sdk.adsbase.adlisteners.VideoListener;
 
 import org.moneydrop.app.DataClasses.TaskTwoAdapter;
 import org.moneydrop.app.DataClasses.TaskTwoDataset;
@@ -46,13 +45,6 @@ private ArrayList<String> keys;
         String corekey = bundle.getString("dbkey");
 
         final StartAppAd appAd = new StartAppAd(this);
-        appAd.setVideoListener(new VideoListener() {
-            @Override
-            public void onVideoCompleted() {
-            //    Toast.makeText(getActivity(), "Video Finished", Toast.LENGTH_SHORT).show();
-            }
-        });
-
         appAd.loadAd(new AdEventListener() {
             @Override
             public void onReceiveAd(@NonNull Ad ad) {
@@ -60,29 +52,16 @@ private ArrayList<String> keys;
                 appAd.showAd(new AdDisplayListener() {
                     @Override
                     public void adHidden(Ad ad) {
-                    //    Toast.makeText(getActivity(), "Ad Hidden", Toast.LENGTH_SHORT).show();
+
                     }
 
                     @Override
                     public void adDisplayed(Ad ad) {
-//                        Toast.makeText(getActivity(), "Ad Displayed", Toast.LENGTH_SHORT).show();
-//                        Log.d("",ad.errorMessage);
+
                     }
 
                     @Override
                     public void adClicked(Ad ad) {
-                      //  Toast.makeText(getActivity(), "Ad Clicked", Toast.LENGTH_SHORT).show();
-//                        reference.setValue(++point).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void unused) {
-//                             //   Toast.makeText(getActivity(), "1 point has been added!", Toast.LENGTH_SHORT).show();
-//                            }
-//                        }).addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                            //    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
                     }
 
                     @Override
@@ -101,7 +80,7 @@ private ArrayList<String> keys;
         recyclerView = binding.recyclerTaskTwo;
         arrayList = new ArrayList<TaskTwoDataset>();
         keys = new ArrayList<>();
-        adapter = new TaskTwoAdapter(keys,arrayList,this,true);
+        adapter = new TaskTwoAdapter(keys,arrayList,this,true, corekey);
         reference = FirebaseDatabase
                 .getInstance()
                 .getReference()
@@ -121,9 +100,11 @@ private ArrayList<String> keys;
                 keys.clear();
                 for (DataSnapshot ds : snapshot.getChildren()){
                     TaskTwoDataset  dataset = ds.getValue(TaskTwoDataset.class);
-                    if (dataset.getState().equals("undone")){
-                        arrayList.add(dataset);
-                        keys.add(ds.getKey());
+                    if (!arrayList.contains(dataset)) {
+                        if (!dataset.getState().equals("done")) {
+                            arrayList.add(dataset);
+                            keys.add(ds.getKey());
+                        }
                     }
                 }
                 adapter.notifyDataSetChanged();

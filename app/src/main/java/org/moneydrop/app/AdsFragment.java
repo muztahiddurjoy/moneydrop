@@ -1,7 +1,6 @@
 package org.moneydrop.app;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,6 @@ import com.startapp.sdk.adsbase.Ad;
 import com.startapp.sdk.adsbase.StartAppAd;
 import com.startapp.sdk.adsbase.adlisteners.AdDisplayListener;
 import com.startapp.sdk.adsbase.adlisteners.AdEventListener;
-import com.startapp.sdk.adsbase.adlisteners.VideoListener;
 
 
 public class AdsFragment extends Fragment {
@@ -83,16 +81,12 @@ public class AdsFragment extends Fragment {
                 Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
+
         showbtn = root.findViewById(R.id.showads);
         showbtn.setOnClickListener((v)->{
-            final StartAppAd appAd = new StartAppAd(getActivity());
-            appAd.setVideoListener(new VideoListener() {
-                @Override
-                public void onVideoCompleted() {
-                    Toast.makeText(getActivity(), "Video Finished", Toast.LENGTH_SHORT).show();
-                }
-            });
 
+            final StartAppAd appAd = new StartAppAd(getActivity());
             appAd.loadAd(new AdEventListener() {
                 @Override
                 public void onReceiveAd(@NonNull Ad ad) {
@@ -100,25 +94,22 @@ public class AdsFragment extends Fragment {
                     appAd.showAd(new AdDisplayListener() {
                         @Override
                         public void adHidden(Ad ad) {
-                            Toast.makeText(getActivity(), "Ad Hidden", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void adDisplayed(Ad ad) {
-                            Toast.makeText(getActivity(), "Ad Displayed", Toast.LENGTH_SHORT).show();
-                            Log.d("",ad.errorMessage);
                         }
 
                         @Override
                         public void adClicked(Ad ad) {
-                            Toast.makeText(getActivity(), "Ad Clicked", Toast.LENGTH_SHORT).show();
+                            appAd.close();
                             new Thread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    reference.setValue(++point).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    reference.setValue(String.valueOf(point+=100)).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
-                                            Toast.makeText(getActivity(), "1 point has been added!", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getActivity(), "100 point has been added!", Toast.LENGTH_SHORT).show();
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
                                         @Override

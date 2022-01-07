@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.startapp.sdk.adsbase.Ad;
 import com.startapp.sdk.adsbase.StartAppAd;
+import com.startapp.sdk.adsbase.adlisteners.AdDisplayListener;
 import com.startapp.sdk.adsbase.adlisteners.AdEventListener;
-import com.startapp.sdk.adsbase.adlisteners.VideoListener;
 
 import org.moneydrop.app.DataClasses.TaskDataset;
 
@@ -56,10 +56,24 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolderTask
                 }
                // StartAppAd.showAd(context);
                 final StartAppAd offer = new StartAppAd(context);
-                offer.setVideoListener(new VideoListener() {
+                offer.showAd(new AdDisplayListener() {
                     @Override
-                    public void onVideoCompleted() {
-                        Toast.makeText(context, "Granted", Toast.LENGTH_SHORT).show();
+                    public void adHidden(Ad ad) {
+
+                    }
+
+                    @Override
+                    public void adDisplayed(Ad ad) {
+
+                    }
+
+                    @Override
+                    public void adClicked(Ad ad) {
+                        offer.close();
+                    }
+
+                    @Override
+                    public void adNotDisplayed(Ad ad) {
 
                     }
                 });
