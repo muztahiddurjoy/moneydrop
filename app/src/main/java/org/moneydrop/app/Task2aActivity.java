@@ -43,7 +43,8 @@ private ArrayList<String> keys;
         setContentView(binding.getRoot());
         Bundle bundle = getIntent().getExtras();
         String corekey = bundle.getString("dbkey");
-
+        String nametask = bundle.getString("not");
+        getSupportActionBar().setTitle(nametask);
         final StartAppAd appAd = new StartAppAd(this);
         appAd.loadAd(new AdEventListener() {
             @Override
@@ -101,10 +102,8 @@ private ArrayList<String> keys;
                 for (DataSnapshot ds : snapshot.getChildren()){
                     TaskTwoDataset  dataset = ds.getValue(TaskTwoDataset.class);
                     if (!arrayList.contains(dataset)) {
-                        if (!dataset.getState().equals("done")) {
                             arrayList.add(dataset);
                             keys.add(ds.getKey());
-                        }
                     }
                 }
                 adapter.notifyDataSetChanged();
@@ -123,5 +122,9 @@ private ArrayList<String> keys;
     }
     public void deleteOper(){
         Toast.makeText(this, "Hello", Toast.LENGTH_SHORT).show();
+    }
+
+    public void markasDone(View view) {
+
     }
 }

@@ -10,19 +10,37 @@
         android:id="@+id/recycler_task_two"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button2"
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Go back"
-        android:layout_margin="10sp"
-        android:onClick="goBack"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="10sp">
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btnback"
+            android:onClick="goBack"
+            android:textColor="@color/white"
+            android:text="Go back" />
+
+        <Button
+            android:id="@+id/markasdone"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/borderbtn"
+            android:textColor="@color/purple_500"
+            android:onClick="markasDone"
+            android:text="Mark As done" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

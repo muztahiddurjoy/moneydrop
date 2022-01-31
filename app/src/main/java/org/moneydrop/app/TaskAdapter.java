@@ -52,6 +52,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolderTask
                 if (clickable){
                     Intent intent = new Intent(context,Task2aActivity.class);
                     intent.putExtra("dbkey",key);
+                    intent.putExtra("not",val);
                     context.startActivity(intent);
                 }
                // StartAppAd.showAd(context);

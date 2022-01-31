@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,45 +39,42 @@ public class TaskTwoAdapter extends RecyclerView.Adapter<TaskTwoAdapter.TaskTwoV
         this.context = context;
         this.clickable = clickable;
         this.child = child;
+//        if (arrayList.size()==0){
+//            DatabaseReference reference1 = FirebaseDatabase
+//                    .getInstance()
+//                    .getReference()
+//                    .child("users")
+//                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+//                    .child("tasks")
+//                    .child(child)
+//                    .child("state");
+//            reference1.setValue("done");
+//            Toast.makeText(context, String.valueOf(arrayList.size()), Toast.LENGTH_SHORT).show();
+//        }
     }
 
     @NonNull
     @Override
     public TaskTwoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (arrayList.size()==0){
-            DatabaseReference reference1 = FirebaseDatabase
-                    .getInstance()
-                    .getReference()
-                    .child("users")
-                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                    .child("tasks")
-                    .child(child)
-                    .child("state");
-            reference1.setValue("done");
-        }
-        Toast.makeText(context, String.valueOf(arrayList.size()), Toast.LENGTH_SHORT).show();
         return new TaskTwoViewHolder(LayoutInflater.from(context).inflate(R.layout.task_row,parent,false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull TaskTwoViewHolder holder, int position) {
-        if (arrayList.size()==0){
-            DatabaseReference reference1 = FirebaseDatabase
-                    .getInstance()
-                    .getReference()
-                    .child("users")
-                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                    .child("tasks")
-                    .child(child)
-                    .child("state");
-            reference1.setValue("done");
-        }
-        Toast.makeText(context, String.valueOf(arrayList.size()), Toast.LENGTH_SHORT).show();
+//        if (arrayList.size()==0){
+//            DatabaseReference reference1 = FirebaseDatabase
+//                    .getInstance()
+//                    .getReference()
+//                    .child("users")
+//                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+//                    .child("tasks")
+//                    .child(child)
+//                    .child("state");
+//            reference1.setValue("done");
+//        }
         TaskTwoDataset dataset = arrayList.get(position);
         String key = keys.get(position);
-        if (dataset.getState().equals("done")){
-            holder.itemView.setClickable(false);
-        }
+
         holder.textView.setText(dataset.getName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
@@ -88,26 +84,16 @@ public class TaskTwoAdapter extends RecyclerView.Adapter<TaskTwoAdapter.TaskTwoV
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setData(Uri.parse(dataset.getLink()));
                     context.startActivity(intent);
-                    timer = new CountDownTimer(5000,1) {
-                        @Override
-                        public void onTick(long l) {
 
-                        }
-
-                        @Override
-                        public void onFinish() {
                             holder.textView.setTextColor(Color.GRAY);
                             holder.itemView.setClickable(false);
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("tasks").child(child).child("tasks").child(key).child("state");
                             reference.setValue("done").addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
-                                    arrayList.remove(dataset);
-                                    keys.remove(key);
+
                                 }
                             });
-                        }
-                    }.start();
 
                 }
             }

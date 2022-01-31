@@ -67,6 +67,13 @@
                 android:id="@+id/phone_profile"
                 />
         </LinearLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/logout"
+            android:layout_margin="10dp"
+            android:id="@+id/btn_logout"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

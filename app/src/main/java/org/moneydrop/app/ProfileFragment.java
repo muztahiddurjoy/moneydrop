@@ -1,9 +1,11 @@
 package org.moneydrop.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,6 +63,7 @@ public class ProfileFragment extends Fragment {
     private TaskAdapter adapter;
     private ArrayList<String> keys;
     private ArrayList<TaskDataset> arrayList;
+    private Button logout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,6 +74,7 @@ public class ProfileFragment extends Fragment {
         email = root.findViewById(R.id.email_profile);
         phone = root.findViewById(R.id.phone_profile);
         balance = root.findViewById(R.id.balance_profile);
+        logout = root.findViewById(R.id.btn_logout);
         keys = new ArrayList<String>();
         arrayList = new ArrayList<TaskDataset>();
         recyclerView = root.findViewById(R.id.recycler_done_profile);
@@ -116,7 +120,10 @@ public class ProfileFragment extends Fragment {
             }
         });
         recyclerView.setAdapter(adapter);
-
+        logout.setOnClickListener(v->{
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(getActivity(),SigninActivity.class));
+        });
         return root;
     }
 }

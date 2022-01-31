@@ -42,7 +42,15 @@ public class SplashScreen extends Activity {
                     }
                     else {
                         if (auth.getCurrentUser() != null){
-                            startActivity(new Intent(SplashScreen.this,MainActivity.class));
+
+                            if (auth.getCurrentUser().isEmailVerified()){
+                                startActivity(new Intent(SplashScreen.this,MainActivity.class));
+                            }
+                            else {
+
+                                finish();
+                                startActivity(new Intent(SplashScreen.this,Email_verify.class));
+                            }
                         }
                         else {
                             startActivity(new Intent(SplashScreen.this,AuthActivity.class));

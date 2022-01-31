@@ -33,7 +33,8 @@
             android:exported="false" />
         <activity
             android:name=".Email_verify"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/NoActionBar"/>
         <activity
             android:name=".SigninActivity"
             android:exported="false" />
@@ -55,6 +56,13 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" />
-    </application>
 
+        <service
+            android:name=".Services.FirebaseMessagingServiceMoneyDropApp"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+    </application>
 </manifest>

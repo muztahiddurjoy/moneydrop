@@ -90,7 +90,6 @@ public class AdsFragment extends Fragment {
             appAd.loadAd(new AdEventListener() {
                 @Override
                 public void onReceiveAd(@NonNull Ad ad) {
-
                     appAd.showAd(new AdDisplayListener() {
                         @Override
                         public void adHidden(Ad ad) {
